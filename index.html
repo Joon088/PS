@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#10131a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="퍼펙트서버">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./style.css">
+  <title>퍼펙트서버 가이드</title>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="device" id="device">
+      <div class="dynamic-island" aria-hidden="true"></div>
+
+      <section class="screen home-screen" id="homeScreen">
+        <header class="status-bar status-dark">
+          <span class="clock-mini">00:00</span>
+          <span class="status-icons">5G&nbsp;&nbsp;◉◉◉&nbsp;&nbsp;▰</span>
+        </header>
+
+        <div class="hero">
+          <p class="hero-kicker">PERFECT SERVER</p>
+          <h1 id="serverName">퍼펙트서버</h1>
+          <p>서버 이용 안내</p>
+        </div>
+
+        <div class="app-grid">
+          <button class="app-launcher" data-app="laws"><span class="icon icon-law">⚖</span><span>서버법률</span></button>
+          <button class="app-launcher" data-app="newbie"><span class="icon icon-newbie">🌱</span><span>뉴비가이드</span></button>
+          <button class="app-launcher" data-app="keys"><span class="icon icon-key">⌨</span><span>키가이드</span></button>
+          <button class="app-launcher" data-app="orgs"><span class="icon icon-org">🏢</span><span>기업·조직</span></button>
+          <button class="app-launcher" data-app="motions"><span class="icon icon-motion">🕺</span><span>행동모션</span></button>
+          <button class="app-launcher" data-app="faq"><span class="icon icon-faq">?</span><span>FAQ</span></button>
+          <button class="app-launcher" id="discordLauncher"><span class="icon icon-discord">◉</span><span>디스코드</span></button>
+        </div>
+
+        <div class="page-dots"><i class="active"></i><i></i><i></i></div>
+
+        <div class="dock">
+          <button aria-label="손전등">🔦</button>
+          <button aria-label="카메라">📷</button>
+        </div>
+        <div class="home-bar home-bar-dark"></div>
+      </section>
+
+      <section class="screen lock-screen" id="lockScreen">
+        <header class="status-bar">
+          <span class="clock-mini">00:00</span>
+          <span class="status-icons">5G&nbsp;&nbsp;◉◉◉&nbsp;&nbsp;▰</span>
+        </header>
+
+        <div class="lock-copy">
+          <p id="lockDate">8월 1일 토요일</p>
+          <h2 id="lockTime">00:00</h2>
+        </div>
+
+        <div class="notification-card">
+          <div class="notify-icon">P</div>
+          <div>
+            <strong>퍼펙트서버</strong>
+            <p>서버 가이드를 확인해보세요.</p>
+          </div>
+          <small>지금</small>
+        </div>
+
+        <div class="lock-footer">
+          <div class="quick-actions">
+            <button>🔦</button><button>📷</button>
+          </div>
+          <p class="swipe-label">위로 쓸어올려 잠금 해제</p>
+          <div class="home-bar"></div>
+        </div>
+      </section>
+
+      <section class="screen app-screen" id="appScreen" aria-hidden="true">
+        <div class="app-surface">
+          <header class="app-top">
+            <button class="back" id="backButton" aria-label="뒤로">‹</button>
+            <div>
+              <p>PERFECT SERVER</p>
+              <h2 id="appTitle">앱</h2>
+            </div>
+          </header>
+
+          <div class="search-box" id="searchBox">
+            <input id="searchInput" type="search" placeholder="검색" autocomplete="off">
+          </div>
+
+          <div class="content" id="appContent"></div>
+          <button class="to-top" id="toTop" aria-label="맨 위로">↑</button>
+          <div class="home-bar home-bar-dark"></div>
+        </div>
+      </section>
+
+      <div class="toast" id="toast"></div>
+    </section>
+  </main>
+<script src="./script.js"></script>
+</body>
+</html>
