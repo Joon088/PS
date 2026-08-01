@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080713">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="퍼펙트서버">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.svg">
+  <link rel="stylesheet" href="./style.css?v=3">
+  <title>퍼펙트서버 가이드</title>
+</head>
+<body>
+
+  <div class="splash-screen" id="splashScreen" aria-hidden="true">
+    <div class="splash-content splash-content-logo-title">
+      <img
+        class="splash-perfect-logo"
+        src="./images/perfect-logo.png"
+        alt="PERFECT"
+        draggable="false"
+      >
+      <p class="splash-server-title">PERFECT SERVER</p>
+      <div class="splash-loading" aria-hidden="true">
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+<main class="page-shell">
+    <section class="device" id="device">
+      <div class="dynamic-island" aria-hidden="true"></div>
+
+      <section class="screen home-screen" id="homeScreen">
+        <header class="fake-status-bar fake-status-dark">
+          <span class="clock-mini">00:00</span>
+          <div class="status-right" aria-hidden="true">
+            <span class="network-label">5G</span>
+            <svg class="signal-icon" viewBox="0 0 22 13">
+              <rect x="1" y="9" width="3" height="3" rx="1"/>
+              <rect x="6" y="6" width="3" height="6" rx="1"/>
+              <rect x="11" y="3" width="3" height="9" rx="1"/>
+              <rect x="16" y="0" width="3" height="12" rx="1"/>
+            </svg>
+            <svg class="battery-icon" viewBox="0 0 27 13">
+              <rect x="1" y="1" width="22" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="24" y="4" width="2" height="5" rx="1"/>
+              <rect x="3.5" y="3.5" width="16" height="6" rx="1.5"/>
+            </svg>
+          </div>
+        </header>
+
+        <div class="hero">
+          <p class="hero-kicker">PERFECT SERVER</p>
+          <h1 id="serverName">퍼펙트서버</h1>
+          <p>서버 이용 안내</p>
+        </div>
+
+        <div class="app-grid">
+          <button class="app-launcher" data-app="laws"><span class="icon icon-law"><svg class="app-svg" viewBox="0 0 48 48" aria-hidden="true">
+      <path d="M24 8v29M12 15h24M16 15l-7 13h14zM32 15l-7 13h14zM16 37h16"
+        fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg></span><span>서버법률</span></button>
+          <button class="app-launcher" data-app="newbie"><span class="icon icon-newbie"><svg class="app-svg" viewBox="0 0 48 48" aria-hidden="true">
+      <path d="M24 39V21M23 23C15 22 11 18 10 11c8 0 13 4 14 12M25 27c8-1 13-5 14-12-8 0-13 4-14 12"
+        fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg></span><span>뉴비가이드</span></button>
+          <button class="app-launcher" data-app="keys"><span class="icon icon-key"><svg class="app-svg" viewBox="0 0 48 48" aria-hidden="true">
+      <rect x="7" y="12" width="34" height="24" rx="5" fill="none" stroke="currentColor" stroke-width="3"/>
+      <path d="M13 19h3M20 19h3M27 19h3M34 19h2M13 26h3M20 26h3M27 26h3M34 26h2M16 32h16"
+        fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
+    </svg></span><span>키가이드</span></button>
+          <button class="app-launcher" data-app="orgs"><span class="icon icon-org"><svg class="app-svg" viewBox="0 0 48 48" aria-hidden="true">
+      <path d="M10 40V15h18v25M28 23h10v17M15 21h4M15 27h4M15 33h4M23 21h1M23 27h1M23 33h1M33 29h2M33 35h2"
+        fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg></span><span>기업·조직</span></button>
+          <button class="app-launcher" data-app="motions"><span class="icon icon-motion"><svg class="app-svg app-svg-motion-v6" viewBox="0 0 48 48" aria-hidden="true">
+  <circle cx="24" cy="24" r="8.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3.8"/>
+  <path d="M24 8c7.8 0 14 4.2 17 10.5M40.5 13.5l.5 5.5-5.5-.5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+  <path d="M24 40c-7.8 0-14-4.2-17-10.5M7.5 34.5 7 29l5.5.5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+  <path d="M24 18v6l4.5 3"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+</svg></span><span>행동모션</span></button>
+          <button class="app-launcher" data-app="faq"><span class="icon icon-faq"><svg class="app-svg" viewBox="0 0 48 48" aria-hidden="true">
+      <path d="M17 18c1-6 13-8 15-1 2 7-8 7-8 13M24 37h.01"
+        fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+    </svg></span><span>FAQ</span></button>
+          <button class="app-launcher" id="discordLauncher"><span class="icon icon-discord"><svg class="app-svg app-svg-discord-v6" viewBox="0 0 48 48" aria-hidden="true">
+  <path d="M10 12h28a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4H22l-9 6v-6h-3a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3.4"
+        stroke-linejoin="round"/>
+  <circle cx="17" cy="24.5" r="2.2" fill="currentColor"/>
+  <circle cx="24" cy="24.5" r="2.2" fill="currentColor"/>
+  <circle cx="31" cy="24.5" r="2.2" fill="currentColor"/>
+</svg></span><span>디스코드</span></button>
+        </div>
+
+        <div class="page-dots"><i class="active"></i><i></i><i></i></div>
+
+        <div class="dock pf-dock">
+          <button class="dock-button" aria-label="손전등">
+            <svg class="dock-svg dock-flash" viewBox="0 0 32 32" aria-hidden="true">
+  <path d="M18.4 2.5 9.8 15.2h5.8l-2 14.3 8.6-13.2h-5.8z"
+        fill="currentColor" stroke="currentColor" stroke-linejoin="round"/>
+</svg>
+          </button>
+          <div class="dock-emblem" aria-hidden="true">PF</div>
+          <button class="dock-button" aria-label="카메라">
+            <svg class="dock-svg dock-camera" viewBox="0 0 32 32" aria-hidden="true">
+  <path d="M10.3 8.5 12 5.7h8l1.7 2.8H25a3 3 0 0 1 3 3v11.2a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V11.5a3 3 0 0 1 3-3z"
+        fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="16" cy="17" r="5.2" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <circle cx="24" cy="12.2" r="1.1" fill="currentColor"/>
+</svg>
+          </button>
+        </div>
+        <div class="home-bar home-bar-dark"></div>
+      </section>
+
+      <section class="screen lock-screen" id="lockScreen">
+        <header class="fake-status-bar fake-status-light">
+          <span class="clock-mini">00:00</span>
+          <div class="status-right" aria-hidden="true">
+            <span class="network-label">5G</span>
+            <svg class="signal-icon" viewBox="0 0 22 13">
+              <rect x="1" y="9" width="3" height="3" rx="1"/>
+              <rect x="6" y="6" width="3" height="6" rx="1"/>
+              <rect x="11" y="3" width="3" height="9" rx="1"/>
+              <rect x="16" y="0" width="3" height="12" rx="1"/>
+            </svg>
+            <svg class="battery-icon" viewBox="0 0 27 13">
+              <rect x="1" y="1" width="22" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="24" y="4" width="2" height="5" rx="1"/>
+              <rect x="3.5" y="3.5" width="16" height="6" rx="1.5"/>
+            </svg>
+          </div>
+        </header>
+
+        <div class="lock-copy">
+          <p id="lockDate">8월 1일 토요일</p>
+          <h2 id="lockTime">00:00</h2>
+        </div>
+
+        <div class="notification-card">
+          <div class="notify-icon">P</div>
+          <div class="notification-text">
+            <strong>퍼펙트서버</strong>
+            <p>서버 가이드를 확인해보세요.</p>
+          </div>
+          <small>지금</small>
+        </div>
+
+        <div class="lock-footer">
+          <div class="quick-actions">
+            <button class="quick-action-button flash-button" aria-label="손전등">
+              <svg class="quick-icon quick-icon-flash" viewBox="0 0 32 32" aria-hidden="true">
+  <path d="M18.4 2.5 9.8 15.2h5.8l-2 14.3 8.6-13.2h-5.8z"
+        fill="currentColor"
+        stroke="currentColor"
+        stroke-linejoin="round"/>
+</svg>
+            </button>
+            <button class="quick-action-button camera-button" aria-label="카메라">
+              <svg class="quick-icon quick-icon-camera" viewBox="0 0 32 32" aria-hidden="true">
+  <path d="M10.3 8.5 12 5.7h8l1.7 2.8H25a3 3 0 0 1 3 3v11.2a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V11.5a3 3 0 0 1 3-3z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linejoin="round"/>
+  <circle cx="16" cy="17" r="5.2"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"/>
+  <circle cx="24" cy="12.2" r="1.1" fill="currentColor"/>
+</svg>
+            </button>
+          </div>
+          <p class="swipe-label">위로 쓸어올려 잠금 해제</p>
+          <div class="home-bar"></div>
+        </div>
+      </section>
+
+      <section class="screen app-screen" id="appScreen" aria-hidden="true">
+        <div class="app-surface">
+          <header class="app-top">
+            <button class="back" id="backButton" aria-label="뒤로"></button>
+            <div>
+              <p>PERFECT SERVER</p>
+              <h2 id="appTitle">앱</h2>
+            </div>
+          </header>
+
+          <div class="search-box" id="searchBox">
+            <input id="searchInput" type="search" placeholder="검색" autocomplete="off">
+          </div>
+
+          <div class="content" id="appContent"></div>
+          <button class="to-top" id="toTop" aria-label="맨 위로">↑</button>
+          <div class="home-bar home-bar-dark"></div>
+        </div>
+      </section>
+
+      <div class="toast" id="toast"></div>
+    </section>
+  </main>
+  <script src="./script.js?v=3"></script>
+</body>
+</html>

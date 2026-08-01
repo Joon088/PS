@@ -1,0 +1,1806 @@
+:root{
+  --outside:#070a11;
+  --panel:#f4f6fa;
+  --ink:#10131a;
+  --muted:#667085;
+  --card:#fff;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",sans-serif;
+  background:var(--outside);
+}
+
+button,input{font:inherit}
+button{cursor:pointer}
+
+.page-shell{
+  min-height:100dvh;
+  display:grid;
+  place-items:center;
+  padding:24px;
+}
+
+.device{
+  position:relative;
+  width:min(393px,100vw);
+  height:min(852px,100dvh);
+  overflow:hidden;
+  border-radius:52px;
+  border:9px solid #1c2029;
+  background:#dfe5ef;
+  box-shadow:0 30px 120px #000b,0 0 0 1px #ffffff18 inset;
+}
+
+.dynamic-island{
+  position:absolute;
+  z-index:100;
+  top:13px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  height:34px;
+  border-radius:24px;
+  background:#020304;
+}
+
+.screen{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+}
+
+/* 깨지거나 겹치지 않는 새 가짜 상태바 */
+.fake-status-bar{
+  position:relative;
+  z-index:80;
+  height:54px;
+  padding:17px 25px 0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  font-size:12px;
+  line-height:13px;
+  font-weight:800;
+  font-variant-numeric:tabular-nums;
+}
+
+.fake-status-light{
+  color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.72);
+}
+
+.fake-status-dark{color:#111827}
+
+.status-right{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  height:13px;
+}
+
+.network-label{line-height:13px}
+
+.signal-icon{
+  display:block;
+  width:19px;
+  height:12px;
+  fill:currentColor;
+}
+
+.battery-icon{
+  display:block;
+  width:24px;
+  height:12px;
+  color:inherit;
+  fill:currentColor;
+}
+
+.home-screen{
+  background:radial-gradient(circle at 15% 0,#fff 0,#eef3fb 40%,#d4deed 78%,#c7d2e4 100%);
+}
+
+.hero{padding:72px 26px 12px}
+.hero-kicker,.app-top p{margin:0;font-size:10px;letter-spacing:.22em;font-weight:900;color:#6b7280}
+.hero h1{margin:8px 0 3px;font-size:34px;letter-spacing:-.05em}
+.hero>p:last-child{margin:0;color:#667085}
+
+.app-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:25px 12px;
+  padding:30px 18px 0;
+}
+
+.app-launcher{
+  border:0;
+  background:transparent;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:7px;
+  font-size:11px;
+  font-weight:800;
+  color:#111827;
+}
+
+.app-launcher:active .icon{transform:scale(.88)}
+
+.icon{
+  width:64px;
+  height:64px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:29px;
+  box-shadow:inset 0 1px #fff7,0 10px 18px #1d293933;
+  transition:transform .14s;
+}
+
+.icon-law{background:linear-gradient(145deg,#4cb2ff,#1c5ad7)}
+.icon-newbie{background:linear-gradient(145deg,#74e49a,#16864c)}
+.icon-key{background:linear-gradient(145deg,#ffbf6f,#de6b22)}
+.icon-org{background:linear-gradient(145deg,#4dd9d2,#12818a)}
+.icon-motion{background:linear-gradient(145deg,#b87aff,#632cb9)}
+.icon-faq{background:linear-gradient(145deg,#ff83bc,#ca2f78);font-size:34px;font-weight:900}
+.icon-discord{background:linear-gradient(145deg,#8795ff,#4b55ca)}
+
+.page-dots{
+  position:absolute;
+  bottom:130px;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:center;
+  gap:7px;
+}
+
+.page-dots i{width:6px;height:6px;border-radius:50%;background:#6b728080}
+.page-dots i.active{background:#1f2937}
+
+.dock{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:28px;
+  height:92px;
+  border-radius:31px;
+  background:#ffffffb0;
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  box-shadow:0 13px 35px #33415525;
+}
+
+.dock button{
+  width:58px;
+  height:58px;
+  border:0;
+  border-radius:18px;
+  background:#fff;
+  font-size:27px;
+  box-shadow:0 6px 18px #0002;
+}
+
+/* 새 잠금화면 */
+.lock-screen{
+  z-index:30;
+  color:#fff;
+  touch-action:none;
+  background:
+    linear-gradient(180deg,rgba(2,1,8,.02) 0%,rgba(2,1,8,.03) 48%,rgba(1,1,6,.37) 100%),
+    url("./images/background.png") center/cover no-repeat;
+  transition:transform .48s cubic-bezier(.2,.84,.18,1),opacity .4s;
+}
+
+.lock-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.02),transparent 48%,rgba(0,0,0,.30));
+}
+
+.lock-copy{
+  position:relative;
+  z-index:3;
+  text-align:center;
+  margin-top:53px;
+  padding:0 20px;
+}
+
+.lock-copy p{
+  margin:0;
+  font-size:17px;
+  font-weight:700;
+  text-shadow:0 2px 5px rgba(0,0,0,.52);
+}
+
+.lock-copy h2{
+  margin:8px 0 0;
+  font-size:76px;
+  line-height:.95;
+  font-weight:250;
+  letter-spacing:-.07em;
+  text-shadow:0 3px 8px rgba(0,0,0,.42);
+}
+
+.notification-card{
+  position:absolute;
+  z-index:4;
+  left:21px;
+  right:21px;
+  bottom:174px;
+  padding:13px 14px;
+  border-radius:21px;
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr) auto;
+  align-items:center;
+  gap:11px;
+  background:rgba(21,16,38,.43);
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(20px) saturate(140%);
+  -webkit-backdrop-filter:blur(20px) saturate(140%);
+  box-shadow:0 12px 30px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.11);
+}
+
+.notify-icon{
+  width:44px;
+  height:44px;
+  border-radius:13px;
+  background:#fff;
+  color:#20283a;
+  display:grid;
+  place-items:center;
+  font-weight:950;
+}
+
+.notification-text{min-width:0}
+.notification-card strong{font-size:15px}
+.notification-card p{margin:3px 0 0;font-size:13px;color:rgba(255,255,255,.82)}
+.notification-card small{align-self:start;padding-top:2px;color:rgba(255,255,255,.70)}
+
+.lock-footer{
+  position:absolute;
+  z-index:4;
+  left:0;
+  right:0;
+  bottom:8px;
+}
+
+.quick-actions{
+  display:flex;
+  justify-content:space-between;
+  padding:0 42px 56px;
+}
+
+.quick-actions button{
+  width:49px;
+  height:49px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.11);
+  background:rgba(0,0,0,.47);
+  color:#fff;
+  font-size:20px;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.swipe-label{
+  margin:0;
+  text-align:center;
+  font-size:12px;
+  font-weight:800;
+  color:rgba(255,255,255,.91);
+  text-shadow:0 2px 5px rgba(0,0,0,.8);
+  animation:swipeHint 1.8s infinite;
+}
+
+@keyframes swipeHint{50%{transform:translateY(-8px);opacity:.55}}
+
+.home-bar{
+  width:133px;
+  height:5px;
+  border-radius:9px;
+  background:#fff;
+  margin:9px auto;
+}
+
+.home-bar-dark{background:#111827}
+
+.app-screen{z-index:20;pointer-events:none}
+
+.app-surface{
+  position:absolute;
+  inset:0;
+  background:var(--panel);
+  transform:scale(.82) translateY(14%);
+  opacity:0;
+  border-radius:42px;
+  transition:transform .42s cubic-bezier(.18,.86,.2,1),opacity .28s,border-radius .42s;
+  display:flex;
+  flex-direction:column;
+}
+
+.app-screen.open{pointer-events:auto}
+.app-screen.open .app-surface{transform:scale(1) translateY(0);opacity:1;border-radius:0}
+
+.app-top{
+  padding:54px 18px 14px;
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr);
+  align-items:center;
+  column-gap:12px;
+}
+
+.app-top>div{min-width:0}
+.app-top p{margin:0 0 3px;line-height:1}
+.app-top h2{margin:0;font-size:27px;line-height:1.05;letter-spacing:-.04em}
+
+.back{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:0;
+  background:#e2e8f1;
+  color:#25324a;
+  display:grid;
+  place-items:center;
+}
+
+.back::before{
+  content:"‹";
+  font-size:31px;
+  line-height:1;
+  transform:translateY(-2px);
+}
+
+.search-box{padding:7px 18px 10px}
+.search-box input{width:100%;border:0;border-radius:15px;padding:13px 15px;background:#fff;outline:none;box-shadow:0 5px 18px #33415513}
+.content{flex:1;overflow:auto;padding:2px 16px 42px;scroll-behavior:smooth}
+
+.card{background:#fff;border-radius:19px;padding:17px;margin:10px 0;box-shadow:0 6px 20px #33415512}
+.card h3{margin:0 0 7px;font-size:17px}
+.card p{margin:0;color:#475467;white-space:pre-wrap;line-height:1.56}
+.category{font-size:11px;color:#6c5ce7;font-weight:900;letter-spacing:.07em;margin-bottom:5px}
+.key-card{display:flex;align-items:center;gap:13px}
+.keycap{min-width:52px;height:45px;border-radius:11px;background:#111827;color:#fff;display:grid;place-items:center;font-weight:900}
+
+/* 영상 가로/세로 자동 비율 */
+.motion{padding:0;overflow:hidden;position:relative;background:#fff}
+.motion-video,.motion-image{display:block;width:auto;max-width:100%;height:auto;max-height:62vh;object-fit:contain;margin:0 auto;background:#0b0f18;opacity:0;visibility:hidden;transition:opacity .2s}
+.motion.media-ready .motion-video,.motion.media-ready .motion-image{opacity:1;visibility:visible}
+.motion.landscape .motion-video,.motion.landscape .motion-image{width:100%;height:auto;max-height:none}
+.motion.square .motion-video,.motion.square .motion-image{width:100%;height:auto}
+.motion:not(.media-ready)::before{
+  content:"";
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  background:linear-gradient(110deg,#dbe3f0 8%,#a6b2c8 18%,#dbe3f0 33%);
+  background-size:200% 100%;
+  animation:shimmer 1.5s linear infinite;
+}
+.motion.media-ready::before{display:none}
+@keyframes shimmer{to{background-position-x:-200%}}
+
+.motion-placeholder{width:100%;aspect-ratio:16/9;display:grid;place-items:center;color:#667085;text-align:center;padding:18px;background:#e8edf5}
+.motion-title{text-align:center;padding:14px 15px;font-weight:900}
+.motion-error span{max-width:100%;overflow-wrap:anywhere}
+
+.faq-q{width:100%;border:0;background:#fff;border-radius:18px;padding:17px;margin:8px 0;text-align:left;font-weight:900;box-shadow:0 6px 20px #33415512}
+.faq-a{padding:2px 17px 17px;color:#475467;line-height:1.55}
+.load-more{display:block;margin:18px auto;padding:12px 22px;border:0;border-radius:14px;background:#111827;color:#fff;font-weight:900}
+.empty,.loading{text-align:center;padding:45px 10px;color:#667085}
+.to-top{position:absolute;right:17px;bottom:27px;width:46px;height:46px;border:0;border-radius:50%;background:#111827;color:#fff;font-size:20px;display:none;box-shadow:0 9px 23px #0004}
+.to-top.show{display:block}
+
+.toast{
+  position:absolute;
+  left:50%;
+  bottom:35px;
+  z-index:120;
+  transform:translate(-50%,20px);
+  opacity:0;
+  background:#111827;
+  color:#fff;
+  padding:11px 15px;
+  border-radius:13px;
+  font-size:12px;
+  transition:.24s;
+  pointer-events:none;
+}
+
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:500px){
+  .page-shell{padding:0}
+  .device{width:100vw;height:100dvh;border:0;border-radius:0}
+  .dynamic-island{top:9px}
+  .app-grid{padding-top:22px}
+  .lock-copy{margin-top:50px}
+  .lock-copy h2{font-size:72px}
+  .notification-card{left:18px;right:18px;bottom:166px}
+  .quick-actions{padding-left:38px;padding-right:38px}
+}
+
+
+/* V3: 잠금화면 가짜 상태바는 항상 순수 흰색 */
+#lockScreen .fake-status-bar,
+#lockScreen .fake-status-bar *,
+#lockScreen .clock-mini,
+#lockScreen .network-label,
+#lockScreen .signal-icon,
+#lockScreen .battery-icon{
+  color:#fff !important;
+  fill:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  opacity:1 !important;
+}
+
+
+/* =========================================================
+   잠금화면 하단 버튼 위치 최종 수정
+   ========================================================= */
+
+.lock-footer{
+  bottom:8px;
+}
+
+.quick-actions{
+  display:flex;
+  justify-content:space-between;
+  padding-left:42px;
+  padding-right:42px;
+  padding-bottom:78px;
+}
+
+.quick-actions button{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.13);
+  background:rgba(0,0,0,.48);
+  color:#fff;
+  font-size:21px;
+  display:grid;
+  place-items:center;
+  padding:0;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:
+    0 9px 24px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.swipe-label{
+  margin-top:0;
+}
+
+@media(max-width:500px){
+  .quick-actions{
+    padding-left:38px;
+    padding-right:38px;
+    padding-bottom:76px;
+  }
+
+  .quick-actions button{
+    width:54px;
+    height:54px;
+  }
+}
+
+
+/* =========================================================
+   잠금화면 하단 요소 위치 재수정
+   알림 / 버튼 / 문구를 서로 독립적으로 고정
+   ========================================================= */
+
+/* 알림은 현재보다 위로 고정 */
+.notification-card{
+  top:auto !important;
+  bottom:236px !important;
+}
+
+/* 하단 영역은 문구와 홈바만 담당 */
+.lock-footer{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0 !important;
+  height:164px;
+  z-index:4;
+}
+
+/* 손전등/카메라를 독립적으로 위쪽에 고정 */
+.quick-actions{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  display:flex;
+  justify-content:space-between;
+  padding:0 42px !important;
+}
+
+.quick-actions button{
+  width:54px;
+  height:54px;
+  margin:0;
+}
+
+/* 안내 문구는 버튼 아래쪽 */
+.swipe-label{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:31px;
+  margin:0;
+}
+
+/* 홈바는 가장 아래 */
+.lock-footer .home-bar{
+  position:absolute;
+  left:50%;
+  bottom:8px;
+  transform:translateX(-50%);
+  margin:0;
+}
+
+@media(max-width:500px){
+  .notification-card{
+    bottom:228px !important;
+  }
+
+  .lock-footer{
+    height:158px;
+  }
+
+  .quick-actions{
+    padding:0 38px !important;
+  }
+}
+
+
+/* =========================================================
+   잠금화면 하단 SVG 아이콘
+   ========================================================= */
+
+.quick-actions button{
+  display:grid;
+  place-items:center;
+  line-height:1;
+  padding:0;
+  overflow:hidden;
+  transition:
+    transform .14s ease,
+    background .14s ease,
+    border-color .14s ease;
+}
+
+.quick-actions button:active{
+  transform:scale(.90);
+  background:rgba(255,255,255,.16);
+  border-color:rgba(255,255,255,.20);
+}
+
+.quick-icon{
+  display:block;
+  width:26px;
+  height:26px;
+  color:#fff;
+  flex:none;
+  pointer-events:none;
+}
+
+.quick-icon-flash{
+  width:25px;
+  height:25px;
+}
+
+.quick-icon-camera{
+  width:26px;
+  height:26px;
+}
+
+/* 운영체제 이모지 기준선 영향을 완전히 제거 */
+.quick-actions button{
+  font-size:0;
+}
+
+
+/* =========================================================
+   V4 — PF 브랜드 홈 화면
+   ========================================================= */
+
+.home-screen{
+  background:
+    radial-gradient(circle at 50% -8%, rgba(218,198,255,.98) 0%, rgba(163,126,241,.72) 22%, rgba(83,53,147,.32) 48%, rgba(17,12,36,.96) 100%),
+    linear-gradient(180deg,#6f4bb8 0%,#2a184d 50%,#100b21 100%);
+  color:#fff;
+}
+
+.home-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 34%,rgba(255,255,255,.14),transparent 25%),
+    radial-gradient(circle at 82% 16%,rgba(183,124,255,.20),transparent 28%),
+    linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.14));
+}
+
+.home-screen .fake-status-dark{
+  color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.42);
+}
+
+.hero{
+  position:relative;
+  z-index:2;
+  padding:74px 26px 12px;
+}
+
+.hero-kicker{
+  color:rgba(255,255,255,.72);
+  letter-spacing:.28em;
+}
+
+.hero h1{
+  color:#fff;
+  font-size:36px;
+  text-shadow:0 6px 20px rgba(0,0,0,.28);
+}
+
+.hero>p:last-child{
+  color:rgba(255,255,255,.74);
+}
+
+.app-grid{
+  position:relative;
+  z-index:2;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px 12px;
+  padding:28px 18px 0;
+}
+
+.app-launcher{
+  color:#fff;
+  font-size:11px;
+  font-weight:850;
+  text-shadow:0 2px 5px rgba(0,0,0,.42);
+}
+
+.icon{
+  width:62px;
+  height:62px;
+  border-radius:19px;
+  color:#fff;
+  font-size:0;
+  overflow:hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.42),
+    inset 0 -10px 20px rgba(24,8,49,.16),
+    0 12px 22px rgba(14,5,31,.32),
+    0 0 0 1px rgba(255,255,255,.08);
+}
+
+.app-svg{
+  width:32px;
+  height:32px;
+  display:block;
+}
+
+.icon-law{background:linear-gradient(145deg,#a981ff,#5d35cb)}
+.icon-newbie{background:linear-gradient(145deg,#8de4bd,#3a9b78)}
+.icon-key{background:linear-gradient(145deg,#ffd194,#d97c3f)}
+.icon-org{background:linear-gradient(145deg,#87e4ee,#338cb9)}
+.icon-motion{background:linear-gradient(145deg,#d094ff,#7b3be0)}
+.icon-faq{background:linear-gradient(145deg,#ff9bcf,#d84794)}
+.icon-discord{background:linear-gradient(145deg,#9eabff,#5865d8)}
+
+.page-dots{
+  z-index:2;
+  bottom:128px;
+}
+
+.page-dots i{
+  background:rgba(255,255,255,.35);
+}
+
+.page-dots i.active{
+  background:#fff;
+  box-shadow:0 0 10px rgba(255,255,255,.55);
+}
+
+.home-screen .dock{
+  z-index:3;
+  left:20px;
+  right:20px;
+  bottom:24px;
+  height:94px;
+  border-radius:31px;
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(24px) saturate(150%);
+  -webkit-backdrop-filter:blur(24px) saturate(150%);
+  box-shadow:
+    0 16px 38px rgba(5,2,16,.34),
+    inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.home-screen .dock button{
+  width:56px;
+  height:56px;
+  border-radius:18px;
+  background:rgba(255,255,255,.92);
+  box-shadow:
+    0 8px 18px rgba(9,3,25,.26),
+    inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+.home-screen .home-bar-dark{
+  background:rgba(255,255,255,.92);
+}
+
+@media(max-width:500px){
+  .hero{
+    padding-top:72px;
+  }
+
+  .app-grid{
+    padding-top:24px;
+  }
+}
+
+
+/* =========================================================
+   V4 — PF 브랜드 하단 Dock
+   ========================================================= */
+
+.home-screen .pf-dock{
+  left:22px;
+  right:22px;
+  bottom:24px;
+  height:86px;
+  padding:0 22px;
+  border-radius:29px;
+  display:grid;
+  grid-template-columns:58px 1fr 58px;
+  align-items:center;
+  gap:18px;
+  background:
+    linear-gradient(180deg,rgba(118,83,185,.38),rgba(33,20,65,.54));
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:
+    0 18px 42px rgba(6,2,18,.42),
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -18px 35px rgba(10,4,26,.18);
+  backdrop-filter:blur(26px) saturate(160%);
+  -webkit-backdrop-filter:blur(26px) saturate(160%);
+}
+
+.home-screen .dock-button{
+  width:58px;
+  height:58px;
+  border-radius:19px;
+  border:1px solid rgba(255,255,255,.15);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.20),rgba(255,255,255,.08));
+  color:#fff;
+  display:grid;
+  place-items:center;
+  padding:0;
+  box-shadow:
+    0 10px 22px rgba(7,2,21,.30),
+    inset 0 1px 0 rgba(255,255,255,.18);
+  transition:transform .14s ease,background .14s ease;
+}
+
+.home-screen .dock-button:active{
+  transform:scale(.90);
+  background:rgba(255,255,255,.18);
+}
+
+.dock-svg{
+  display:block;
+  width:27px;
+  height:27px;
+  color:#fff;
+}
+
+.dock-camera{
+  width:28px;
+  height:28px;
+}
+
+.dock-emblem{
+  justify-self:center;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:#f7efff;
+  font-size:14px;
+  font-weight:950;
+  letter-spacing:.06em;
+  background:
+    radial-gradient(circle at 30% 25%,#d7c4ff 0%,#8c5fda 42%,#3f246f 100%);
+  box-shadow:
+    0 0 24px rgba(183,131,255,.34),
+    inset 0 1px 0 rgba(255,255,255,.28);
+  border:1px solid rgba(255,255,255,.16);
+}
+
+.home-screen .page-dots{
+  bottom:124px;
+}
+
+@media(max-width:500px){
+  .home-screen .pf-dock{
+    left:18px;
+    right:18px;
+    bottom:20px;
+    height:84px;
+    grid-template-columns:56px 1fr 56px;
+  }
+
+  .home-screen .dock-button{
+    width:56px;
+    height:56px;
+  }
+
+  .dock-emblem{
+    width:46px;
+    height:46px;
+  }
+}
+
+
+/* 행동모션·디스코드 아이콘만 조정 */
+.app-svg-motion-new{
+  width:37px;
+  height:37px;
+}
+
+.app-svg-discord-new{
+  width:35px;
+  height:35px;
+}
+
+
+/* =========================================================
+   V5 — 행동모션/디스코드 + PF Dock 정리
+   ========================================================= */
+
+/* 아이콘 두 개만 더 단순하고 굵게 */
+.app-svg-motion-v5{
+  width:36px;
+  height:36px;
+}
+
+.app-svg-discord-v5{
+  width:36px;
+  height:36px;
+}
+
+/* 홈 화면 Dock: 흰색 버튼 제거, 보라 유리 버튼으로 통일 */
+.home-screen .pf-dock{
+  background:
+    linear-gradient(180deg,rgba(101,69,165,.42),rgba(32,18,62,.64));
+  border:1px solid rgba(210,181,255,.24);
+  box-shadow:
+    0 18px 42px rgba(6,2,18,.42),
+    inset 0 1px 0 rgba(255,255,255,.13),
+    inset 0 -18px 34px rgba(8,3,22,.22);
+}
+
+.home-screen .dock-button{
+  background:
+    radial-gradient(circle at 35% 25%,rgba(205,178,255,.36),rgba(111,72,181,.30) 50%,rgba(44,25,78,.62) 100%);
+  color:#f8f3ff;
+  border:1px solid rgba(222,201,255,.25);
+  box-shadow:
+    0 10px 22px rgba(7,2,21,.34),
+    0 0 18px rgba(161,110,235,.16),
+    inset 0 1px 0 rgba(255,255,255,.16);
+}
+
+.home-screen .dock-button:hover{
+  background:
+    radial-gradient(circle at 35% 25%,rgba(224,205,255,.44),rgba(125,81,198,.36) 50%,rgba(52,29,91,.68) 100%);
+}
+
+.home-screen .dock-button:active{
+  transform:scale(.90);
+  background:rgba(133,88,201,.42);
+}
+
+/* 가운데 PF는 덜 튀게 */
+.dock-emblem{
+  width:40px;
+  height:40px;
+  font-size:12px;
+  background:
+    radial-gradient(circle at 32% 28%,#c9b1ff 0%,#7f53cb 46%,#351f60 100%);
+  box-shadow:
+    0 0 16px rgba(169,118,240,.22),
+    inset 0 1px 0 rgba(255,255,255,.20);
+  border:1px solid rgba(255,255,255,.12);
+  opacity:.88;
+}
+
+/* 하단 홈바는 순백색 대신 연보라 */
+.home-screen .home-bar-dark{
+  background:#d8c8ff;
+  box-shadow:0 0 10px rgba(181,137,255,.36);
+}
+
+/* Dock 안 SVG는 선명한 연보라 */
+.home-screen .dock-svg{
+  color:#f3eaff;
+  filter:drop-shadow(0 0 5px rgba(210,177,255,.30));
+}
+
+
+/* =========================================================
+   V6 — 행동모션/디스코드 + Dock 가시성 수정
+   ========================================================= */
+
+/* 새 행동모션/디스코드 아이콘 */
+.app-svg-motion-v6{
+  width:36px;
+  height:36px;
+}
+
+.app-svg-discord-v6{
+  width:35px;
+  height:35px;
+}
+
+/* Dock 버튼은 평소에도 확실히 보이게 */
+.home-screen .dock-button{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(235,225,255,.96),
+      rgba(201,178,244,.88)
+    );
+  color:#5b35a7;
+  border:1px solid rgba(255,255,255,.58);
+  box-shadow:
+    0 10px 22px rgba(7,2,21,.30),
+    inset 0 1px 0 rgba(255,255,255,.72);
+}
+
+.home-screen .dock-button:hover{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(219,202,255,.98),
+      rgba(169,132,230,.94)
+    );
+  color:#43227f;
+}
+
+.home-screen .dock-button:active{
+  transform:scale(.90);
+  background:rgba(181,150,234,.95);
+  color:#351864;
+}
+
+/* 기존 흰색 SVG 강제값보다 우선 */
+.home-screen .dock-svg{
+  color:#5b35a7 !important;
+  filter:none;
+  opacity:1;
+}
+
+.home-screen .dock-button:hover .dock-svg{
+  color:#43227f !important;
+}
+
+/* 중앙 PF와 톤 맞춤 */
+.dock-emblem{
+  color:#fff;
+  background:
+    radial-gradient(
+      circle at 32% 28%,
+      #d7c3ff 0%,
+      #8657d3 46%,
+      #3b216d 100%
+    );
+}
+
+
+/* =========================================================
+   V7 — PF Glass Polish
+   현재 디자인 유지 + 세부 완성도 향상
+   ========================================================= */
+
+/* 앱 아이콘에 은은한 유리광택 */
+.icon{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  transition:
+    transform .18s cubic-bezier(.2,.8,.2,1),
+    box-shadow .18s ease,
+    filter .18s ease;
+}
+
+.icon::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:1px;
+  border-radius:18px;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.34) 0%,
+      rgba(255,255,255,.10) 32%,
+      rgba(255,255,255,0) 58%
+    );
+  mix-blend-mode:screen;
+}
+
+.icon::after{
+  content:"";
+  position:absolute;
+  left:9px;
+  right:9px;
+  top:6px;
+  height:15px;
+  border-radius:999px;
+  pointer-events:none;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.34),
+    rgba(255,255,255,0)
+  );
+  opacity:.7;
+  filter:blur(.2px);
+}
+
+.app-launcher:hover .icon{
+  transform:translateY(-2px) scale(1.025);
+  filter:saturate(1.06) brightness(1.035);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.46),
+    inset 0 -10px 20px rgba(24,8,49,.13),
+    0 16px 28px rgba(14,5,31,.38),
+    0 0 20px rgba(180,126,255,.14),
+    0 0 0 1px rgba(255,255,255,.10);
+}
+
+.app-launcher:active .icon{
+  transform:scale(.91);
+  transition-duration:.08s;
+}
+
+.app-launcher span:last-child{
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    text-shadow .18s ease;
+}
+
+.app-launcher:hover span:last-child{
+  transform:translateY(-1px);
+  text-shadow:
+    0 2px 5px rgba(0,0,0,.44),
+    0 0 12px rgba(214,187,255,.16);
+}
+
+/* Dock 유리감 강화 — 형태와 색은 유지 */
+.home-screen .pf-dock{
+  overflow:hidden;
+}
+
+.home-screen .pf-dock::before{
+  content:"";
+  position:absolute;
+  inset:1px;
+  border-radius:28px;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.14) 0%,
+      rgba(255,255,255,.03) 34%,
+      rgba(255,255,255,0) 66%
+    );
+}
+
+.home-screen .pf-dock::after{
+  content:"";
+  position:absolute;
+  left:28px;
+  right:28px;
+  top:6px;
+  height:18px;
+  border-radius:999px;
+  pointer-events:none;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.12),
+    rgba(255,255,255,0)
+  );
+}
+
+.home-screen .dock-button,
+.dock-emblem{
+  position:relative;
+  z-index:1;
+}
+
+/* Dock 버튼에 은은한 눌림 효과 */
+.home-screen .dock-button{
+  transition:
+    transform .15s cubic-bezier(.2,.8,.2,1),
+    box-shadow .15s ease,
+    filter .15s ease;
+}
+
+.home-screen .dock-button:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.035);
+  box-shadow:
+    0 14px 26px rgba(7,2,21,.34),
+    0 0 18px rgba(152,99,227,.12),
+    inset 0 1px 0 rgba(255,255,255,.78);
+}
+
+.home-screen .dock-button:active{
+  transform:scale(.91);
+}
+
+/* 가운데 PF는 천천히 호흡하는 빛 */
+.dock-emblem{
+  animation:pfPulse 3.2s ease-in-out infinite;
+}
+
+@keyframes pfPulse{
+  0%,100%{
+    box-shadow:
+      0 0 16px rgba(169,118,240,.20),
+      inset 0 1px 0 rgba(255,255,255,.20);
+  }
+  50%{
+    box-shadow:
+      0 0 24px rgba(190,145,255,.34),
+      inset 0 1px 0 rgba(255,255,255,.26);
+  }
+}
+
+/* 홈 화면이 나타날 때 부드럽게 */
+.home-screen .hero,
+.home-screen .app-grid,
+.home-screen .page-dots,
+.home-screen .pf-dock{
+  animation:homeFadeUp .55s cubic-bezier(.18,.84,.2,1) both;
+}
+
+.home-screen .hero{animation-delay:.03s}
+.home-screen .app-grid{animation-delay:.09s}
+.home-screen .page-dots{animation-delay:.14s}
+.home-screen .pf-dock{animation-delay:.18s}
+
+@keyframes homeFadeUp{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* 앱 화면 전환을 조금 더 자연스럽게 */
+.app-surface{
+  transform:scale(.90) translateY(8%);
+  filter:blur(3px);
+  transition:
+    transform .44s cubic-bezier(.18,.86,.2,1),
+    opacity .28s,
+    border-radius .42s,
+    filter .34s ease;
+}
+
+.app-screen.open .app-surface{
+  transform:scale(1) translateY(0);
+  opacity:1;
+  border-radius:0;
+  filter:blur(0);
+}
+
+/* 카드가 너무 평평해 보이지 않도록 아주 약한 깊이 */
+.card,
+.faq-q{
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:
+    0 8px 24px rgba(51,65,85,.09),
+    inset 0 1px 0 rgba(255,255,255,.72);
+}
+
+/* 움직임을 줄이도록 설정한 사용자 배려 */
+@media(prefers-reduced-motion:reduce){
+  .icon,
+  .app-launcher span:last-child,
+  .home-screen .dock-button,
+  .app-surface{
+    transition:none !important;
+  }
+
+  .dock-emblem,
+  .home-screen .hero,
+  .home-screen .app-grid,
+  .home-screen .page-dots,
+  .home-screen .pf-dock{
+    animation:none !important;
+  }
+}
+
+
+/* =========================================================
+   V8 — PF Premium Glass Splash
+   ========================================================= */
+
+.splash-screen{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 22%,rgba(171,125,255,.38),transparent 35%),
+    radial-gradient(circle at 18% 78%,rgba(104,62,182,.26),transparent 34%),
+    linear-gradient(180deg,#160d2b 0%,#090712 60%,#05040a 100%);
+  opacity:1;
+  visibility:visible;
+  transition:
+    opacity .48s ease,
+    visibility .48s ease;
+}
+
+.splash-screen.is-hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.splash-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(255,255,255,.04),transparent 48%),
+    linear-gradient(120deg,transparent 0%,rgba(255,255,255,.025) 48%,transparent 62%);
+  pointer-events:none;
+}
+
+.splash-ambient{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(54px);
+  opacity:.42;
+  animation:splashFloat 4.5s ease-in-out infinite;
+}
+
+.splash-ambient-one{
+  width:220px;
+  height:220px;
+  top:10%;
+  left:4%;
+  background:#7f55d6;
+}
+
+.splash-ambient-two{
+  width:190px;
+  height:190px;
+  right:2%;
+  bottom:10%;
+  background:#b68cff;
+  animation-delay:-2s;
+}
+
+.splash-content{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:22px;
+  transform:translateY(-8px);
+  animation:splashEnter .72s cubic-bezier(.18,.86,.2,1) both;
+}
+
+.splash-logo-wrap{
+  width:176px;
+  height:176px;
+  display:grid;
+  place-items:center;
+  animation:splashLogoPulse 2.4s ease-in-out infinite;
+}
+
+.splash-logo-svg{
+  width:100%;
+  height:100%;
+  display:block;
+  filter:drop-shadow(0 18px 34px rgba(3,1,10,.52));
+}
+
+.splash-brand{
+  margin:0;
+  color:#f8f3ff;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.32em;
+  text-indent:.32em;
+  text-shadow:0 4px 14px rgba(0,0,0,.5);
+}
+
+.splash-loading{
+  width:116px;
+  height:3px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+}
+
+.splash-loading span{
+  display:block;
+  width:42%;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#a773ff,#f4eaff,#d7aa59);
+  box-shadow:0 0 12px rgba(194,148,255,.72);
+  animation:splashLoad 1.05s ease-in-out infinite;
+}
+
+@keyframes splashEnter{
+  from{
+    opacity:0;
+    transform:translateY(12px) scale(.94);
+  }
+  to{
+    opacity:1;
+    transform:translateY(-8px) scale(1);
+  }
+}
+
+@keyframes splashLogoPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.025)}
+}
+
+@keyframes splashLoad{
+  0%{transform:translateX(-115%)}
+  100%{transform:translateX(270%)}
+}
+
+@keyframes splashFloat{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(0,-12px,0) scale(1.06)}
+}
+
+@media(max-width:500px){
+  .splash-logo-wrap{
+    width:158px;
+    height:158px;
+  }
+
+  .splash-brand{
+    font-size:12px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .splash-content,
+  .splash-logo-wrap,
+  .splash-loading span,
+  .splash-ambient{
+    animation:none !important;
+  }
+}
+
+
+/* =========================================================
+   V9 — PERFECT SERVER 텍스트 전용 스플래시
+   ========================================================= */
+
+.splash-screen{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 30%,rgba(151,104,230,.20),transparent 34%),
+    linear-gradient(180deg,#160d2b 0%,#090712 62%,#05040a 100%);
+  opacity:1;
+  visibility:visible;
+  transition:opacity .48s ease,visibility .48s ease;
+}
+
+.splash-screen.is-hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.splash-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(115deg,transparent 22%,rgba(255,255,255,.025) 48%,transparent 67%),
+    radial-gradient(circle at 50% 50%,rgba(255,255,255,.025),transparent 52%);
+}
+
+.splash-content-text-only{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:24px;
+  transform:translateY(-4px);
+  animation:textSplashEnter .7s cubic-bezier(.18,.86,.2,1) both;
+}
+
+.splash-title{
+  margin:0;
+  color:#fff;
+  font-size:24px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:.34em;
+  text-indent:.34em;
+  white-space:nowrap;
+  text-align:center;
+  text-shadow:
+    0 4px 18px rgba(0,0,0,.52),
+    0 0 20px rgba(177,132,255,.16);
+}
+
+.splash-loading{
+  width:132px;
+  height:3px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.13);
+  box-shadow:inset 0 1px 1px rgba(0,0,0,.25);
+}
+
+.splash-loading span{
+  display:block;
+  width:42%;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#8e5bea,#fff,#bd92ff);
+  box-shadow:0 0 12px rgba(185,137,255,.60);
+  animation:textSplashLoading 1.05s ease-in-out infinite;
+}
+
+@keyframes textSplashEnter{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(-4px);
+  }
+}
+
+@keyframes textSplashLoading{
+  0%{transform:translateX(-120%)}
+  100%{transform:translateX(275%)}
+}
+
+@media(max-width:500px){
+  .splash-title{
+    font-size:18px;
+    letter-spacing:.29em;
+    text-indent:.29em;
+  }
+
+  .splash-loading{
+    width:116px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .splash-content-text-only,
+  .splash-loading span{
+    animation:none !important;
+  }
+}
+
+/* 기존 로고 스플래시 구성요소는 표시하지 않음 */
+.splash-logo-wrap,
+.splash-logo-svg,
+.splash-brand,
+.splash-ambient{
+  display:none !important;
+}
+
+
+/* =========================================================
+   V10 — PERFECT 로고 스플래시
+   ========================================================= */
+
+.splash-screen{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 30%,rgba(160,111,239,.18),transparent 36%),
+    linear-gradient(180deg,#160d2b 0%,#090712 62%,#05040a 100%);
+  opacity:1;
+  visibility:visible;
+  transition:opacity .48s ease,visibility .48s ease;
+}
+
+.splash-screen.is-hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.splash-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(115deg,transparent 20%,rgba(255,255,255,.025) 48%,transparent 68%),
+    radial-gradient(circle at 50% 50%,rgba(255,255,255,.02),transparent 54%);
+}
+
+.splash-content-logo{
+  position:relative;
+  z-index:2;
+  width:min(520px,86vw);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:28px;
+  transform:translateY(-8px);
+  animation:perfectLogoEnter .72s cubic-bezier(.18,.86,.2,1) both;
+}
+
+.splash-perfect-logo{
+  display:block;
+  width:100%;
+  max-width:500px;
+  height:auto;
+  object-fit:contain;
+  user-select:none;
+  -webkit-user-drag:none;
+  filter:
+    drop-shadow(0 16px 28px rgba(0,0,0,.54))
+    drop-shadow(0 0 20px rgba(187,145,255,.17));
+  animation:perfectLogoFloat 2.6s ease-in-out infinite;
+}
+
+.splash-loading{
+  width:136px;
+  height:3px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.13);
+  box-shadow:inset 0 1px 1px rgba(0,0,0,.28);
+}
+
+.splash-loading span{
+  display:block;
+  width:42%;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#8e5bea,#fff,#d5a35a);
+  box-shadow:0 0 13px rgba(185,137,255,.62);
+  animation:perfectLogoLoading 1.05s ease-in-out infinite;
+}
+
+@keyframes perfectLogoEnter{
+  from{
+    opacity:0;
+    transform:translateY(8px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:translateY(-8px) scale(1);
+  }
+}
+
+@keyframes perfectLogoFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-3px)}
+}
+
+@keyframes perfectLogoLoading{
+  0%{transform:translateX(-120%)}
+  100%{transform:translateX(275%)}
+}
+
+@media(max-width:500px){
+  .splash-content-logo{
+    width:88vw;
+    gap:24px;
+  }
+
+  .splash-perfect-logo{
+    max-width:390px;
+  }
+
+  .splash-loading{
+    width:118px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .splash-content-logo,
+  .splash-perfect-logo,
+  .splash-loading span{
+    animation:none !important;
+  }
+}
+
+/* 이전 텍스트 전용 스플래시 숨김 */
+.splash-title,
+.splash-content-text-only,
+.splash-logo-wrap,
+.splash-logo-svg,
+.splash-brand,
+.splash-ambient{
+  display:none !important;
+}
+
+
+/* =========================================================
+   V11 — PERFECT 로고 + PERFECT SERVER + 로딩 바
+   ========================================================= */
+
+.splash-content-logo-title{
+  position:relative;
+  z-index:2;
+  width:min(460px,86vw);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+  transform:translateY(-8px);
+  animation:logoTitleEnter .72s cubic-bezier(.18,.86,.2,1) both;
+}
+
+.splash-content-logo-title .splash-perfect-logo{
+  display:block;
+  width:min(360px,80vw);
+  max-width:100%;
+  height:auto;
+  object-fit:contain;
+  user-select:none;
+  -webkit-user-drag:none;
+  filter:
+    drop-shadow(0 16px 28px rgba(0,0,0,.54))
+    drop-shadow(0 0 20px rgba(187,145,255,.17));
+  animation:logoTitleFloat 2.6s ease-in-out infinite;
+}
+
+.splash-server-title{
+  margin:2px 0 0;
+  color:#fff;
+  font-size:18px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:.34em;
+  text-indent:.34em;
+  white-space:nowrap;
+  text-align:center;
+  text-shadow:
+    0 4px 16px rgba(0,0,0,.54),
+    0 0 18px rgba(186,139,255,.16);
+}
+
+.splash-content-logo-title .splash-loading{
+  width:132px;
+  height:3px;
+  margin-top:3px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.13);
+  box-shadow:inset 0 1px 1px rgba(0,0,0,.28);
+}
+
+.splash-content-logo-title .splash-loading span{
+  display:block;
+  width:42%;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#8e5bea,#fff,#d5a35a);
+  box-shadow:0 0 13px rgba(185,137,255,.62);
+  animation:logoTitleLoading 1.05s ease-in-out infinite;
+}
+
+@keyframes logoTitleEnter{
+  from{
+    opacity:0;
+    transform:translateY(8px) scale(.97);
+  }
+  to{
+    opacity:1;
+    transform:translateY(-8px) scale(1);
+  }
+}
+
+@keyframes logoTitleFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-3px)}
+}
+
+@keyframes logoTitleLoading{
+  0%{transform:translateX(-120%)}
+  100%{transform:translateX(275%)}
+}
+
+@media(max-width:500px){
+  .splash-content-logo-title{
+    width:88vw;
+    gap:18px;
+  }
+
+  .splash-content-logo-title .splash-perfect-logo{
+    width:min(300px,82vw);
+  }
+
+  .splash-server-title{
+    font-size:15px;
+    letter-spacing:.29em;
+    text-indent:.29em;
+  }
+
+  .splash-content-logo-title .splash-loading{
+    width:116px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .splash-content-logo-title,
+  .splash-content-logo-title .splash-perfect-logo,
+  .splash-content-logo-title .splash-loading span{
+    animation:none !important;
+  }
+}
+
+/* 이전 스플래시 구성 숨김 */
+.splash-content-logo,
+.splash-content-text-only,
+.splash-title,
+.splash-brand,
+.splash-logo-wrap,
+.splash-logo-svg,
+.splash-ambient{
+  display:none !important;
+}
+
