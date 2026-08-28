@@ -2041,3 +2041,16 @@ button{cursor:pointer}
   object-fit:contain !important;
   background:#000 !important;
 }
+
+/* 뉴비가이드 영상 세로 영역 확장 */
+.newbie-video-frame{
+  height:260px !important;
+  aspect-ratio:auto !important;
+}
+
+.newbie-drive-video,
+.newbie-drive-direct-video{
+  width:100% !important;
+  height:260px !important;
+  aspect-ratio:auto !important;
+}
