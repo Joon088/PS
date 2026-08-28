@@ -1979,78 +1979,35 @@ button{cursor:pointer}
   .newbie-category-grid{grid-template-columns:1fr}
 }
 
-
 /* =========================================================
-   FINAL FIX — Google Drive 플레이어 전체 영상 표시
-   상단 Drive 제어영역 + 16:9 영상 영역을 함께 확보
+   뉴비가이드 영상 — 세로 확장 최종값
+   가로폭은 그대로 유지하고 아래 방향으로 높이만 확장
    ========================================================= */
 
 .newbie-video-frame{
   width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
+  height:310px !important;
+  min-height:310px !important;
+  aspect-ratio:auto !important;
   overflow:hidden !important;
   border-radius:22px !important;
   background:#000 !important;
-}
-
-/* Google Drive preview는 상단 제어바가 있어서 16:9보다 높게 잡아야 함 */
-.newbie-drive-video{
-  display:block !important;
-  position:static !important;
-  width:100% !important;
-  height:auto !important;
-  aspect-ratio:16 / 11.5 !important;
-  min-height:0 !important;
-  border:0 !important;
-  background:#000 !important;
-}
-
-/* 일반 직접 MP4 주소는 정상 16:9 */
-.newbie-video{
-  display:block !important;
-  width:100% !important;
-  height:auto !important;
-  aspect-ratio:16 / 9 !important;
-  max-height:none !important;
-  object-fit:contain !important;
-  background:#000 !important;
-}
-
-@media(max-width:500px){
-  .newbie-drive-video{
-    aspect-ratio:16 / 11.5 !important;
-    min-height:0 !important;
-  }
-}
-
-/* 뉴비가이드 Google Drive 직접 <video> 재생 전용 */
-.newbie-video-frame{
-  width:100%;
-  overflow:hidden;
-  border-radius:22px;
-  background:#000;
-}
-
-.newbie-drive-direct-video{
-  display:block !important;
-  width:100% !important;
-  height:auto !important;
-  aspect-ratio:16 / 9 !important;
-  max-height:none !important;
-  object-fit:contain !important;
-  background:#000 !important;
-}
-
-/* 뉴비가이드 영상 세로 영역 확장 */
-.newbie-video-frame{
-  height:260px !important;
-  aspect-ratio:auto !important;
+  box-shadow:0 12px 28px rgba(19,12,32,.18);
 }
 
 .newbie-drive-video,
 .newbie-drive-direct-video{
+  display:block !important;
   width:100% !important;
-  height:260px !important;
+  height:310px !important;
+  min-height:310px !important;
+  max-height:none !important;
   aspect-ratio:auto !important;
+  border:0 !important;
+  background:#000 !important;
 }
+
+.newbie-drive-direct-video{
+  object-fit:contain !important;
+}
+
