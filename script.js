@@ -40,7 +40,13 @@ window.addEventListener("mouseup",dragEnd);
 lock.addEventListener("dblclick",()=>{dragStart(200);currentY=0;dragEnd()});
 
 document.querySelectorAll("[data-app]").forEach(b=>b.addEventListener("click",()=>openApp(b.dataset.app)));
-document.getElementById("backButton").addEventListener("click",closeApp);
+document.getElementById("backButton").addEventListener("click",()=>{
+  if(activeKey==="newbie" && document.getElementById("newbieCategoryBack")){
+    renderNewbieCategories(rows);
+    return;
+  }
+  closeApp();
+});
 document.getElementById("discordLauncher").addEventListener("click",openDiscord);
 search.addEventListener("input",()=>filterRows(search.value));
 content.addEventListener("scroll",()=>toTop.classList.toggle("show",content.scrollTop>360));
@@ -193,7 +199,7 @@ function filterRows(term){
 function render(data){
   if(!data.length){content.innerHTML='<div class="empty">표시할 내용이 없습니다.<br>확인해주세요.</div>';return}
   if(activeKey==="laws")renderCards(data,["분류","카테고리"],["제목"],["내용"]);
-  if(activeKey==="newbie")renderCards(data,[],["제목"],["내용"]);
+  if(activeKey==="newbie")renderNewbieCategories(data);
   if(activeKey==="keys")renderKeys(data);
   if(activeKey==="orgs")renderCards(data,["종류","분류"],["이름"],["설명"]);
   if(activeKey==="motions")renderMotions(data);
@@ -202,6 +208,158 @@ function render(data){
 function renderCards(data,catNames,titleNames,bodyNames){
   content.innerHTML=data.map(r=>`<article class="card">${catNames.length&&value(r,catNames)?`<div class="category">${esc(value(r,catNames))}</div>`:""}<h3>${esc(value(r,titleNames))}</h3><p>${esc(value(r,bodyNames))}</p></article>`).join("");
 }
+
+function newbieCategoryName(row){
+  return value(row,["카테고리","이름","제목","가이드","분류"])||"가이드";
+}
+
+function newbieIcon(row){
+  const custom=value(row,["아이콘","emoji","이모지"]);
+  if(custom)return custom;
+
+  const name=newbieCategoryName(row);
+  const map=[
+    [/낚시/,"🎣"],
+    [/벌목|나무/,"🪓"],
+    [/채광|광산/,"⛏️"],
+    [/운송|배달|배송/,"🚚"],
+    [/차량|자동차|운전/,"🚗"],
+    [/경제|돈|은행|급여/,"💰"],
+    [/농사|농업/,"🌾"],
+    [/제작|공예/,"🛠️"],
+    [/집|주거|부동산/,"🏠"],
+    [/병원|치료|EMS/,"🏥"]
+  ];
+  for(const [pattern,icon] of map){
+    if(pattern.test(name))return icon;
+  }
+  return "▶";
+}
+
+function googleDriveFileId(input){
+  const url=String(input||"").trim();
+  if(!url)return "";
+
+  const patterns=[
+    /\/file\/d\/([a-zA-Z0-9_-]+)/i,
+    /[?&]id=([a-zA-Z0-9_-]+)/i,
+    /\/d\/([a-zA-Z0-9_-]+)/i
+  ];
+
+  for(const pattern of patterns){
+    const match=url.match(pattern);
+    if(match)return match[1];
+  }
+
+  if(/^[a-zA-Z0-9_-]{20,}$/.test(url))return url;
+  return "";
+}
+
+function newbieVideoSource(row){
+  const direct=value(row,[
+    "영상_URL","영상 URL","구글드라이브","드라이브_URL",
+    "드라이브 URL","Drive URL","URL","링크"
+  ]).trim();
+
+  const driveId=googleDriveFileId(direct);
+  if(driveId){
+    return {
+      type:"drive",
+      url:`https://drive.google.com/file/d/${encodeURIComponent(driveId)}/preview`
+    };
+  }
+
+  if(/^https?:\/\//i.test(direct)){
+    return {type:"video",url:direct};
+  }
+
+  return {type:"empty",url:""};
+}
+
+function renderNewbieCategories(data){
+  document.getElementById("appTitle").textContent="뉴비가이드";
+  searchBox.style.display="none";
+
+  content.innerHTML=`
+    <div class="newbie-intro">
+      <div class="newbie-intro-badge">BEGINNER GUIDE</div>
+      <h3>무엇을 알아볼까요?</h3>
+      <p>카테고리를 선택하면 해당 가이드 영상을 바로 확인할 수 있어요.</p>
+    </div>
+    <div class="newbie-category-grid">
+      ${data.map((row,index)=>`
+        <button class="newbie-category" data-newbie-index="${index}">
+          <span class="newbie-category-icon">${esc(newbieIcon(row))}</span>
+          <span class="newbie-category-name">${esc(newbieCategoryName(row))}</span>
+          <span class="newbie-category-arrow">›</span>
+        </button>
+      `).join("")}
+    </div>
+  `;
+
+  content.querySelectorAll("[data-newbie-index]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      renderNewbieVideo(data[Number(button.dataset.newbieIndex)],data);
+    });
+  });
+}
+
+function renderNewbieVideo(row,allRows){
+  const name=newbieCategoryName(row);
+  const icon=newbieIcon(row);
+  const source=newbieVideoSource(row);
+
+  document.getElementById("appTitle").textContent=name;
+
+  content.innerHTML=`
+    <button class="newbie-back-to-categories" id="newbieCategoryBack">
+      <span>‹</span> 뉴비가이드
+    </button>
+
+    <article class="newbie-video-page">
+      <div class="newbie-video-heading">
+        <span class="newbie-video-icon">${esc(icon)}</span>
+        <div>
+          <div class="newbie-video-kicker">BEGINNER GUIDE</div>
+          <h3>${esc(name)}</h3>
+        </div>
+      </div>
+
+      <div class="newbie-video-frame">
+        ${source.type==="drive" ? `
+          <iframe
+            class="newbie-drive-video"
+            src="${attr(source.url)}"
+            title="${attr(name)} 가이드 영상"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        ` : source.type==="video" ? `
+          <video
+            class="newbie-video"
+            src="${attr(source.url)}"
+            controls
+            playsinline
+            preload="metadata"
+            aria-label="${attr(name)} 가이드 영상"
+          ></video>
+        ` : `
+          <div class="newbie-video-empty">
+            <span>▶</span>
+            <strong>영상 준비 중</strong>
+            <small>시트의 영상_URL에 Google Drive 공유 링크를 입력해주세요.</small>
+          </div>
+        `}
+      </div>
+    </article>
+  `;
+
+  document.getElementById("newbieCategoryBack")?.addEventListener("click",()=>{
+    renderNewbieCategories(allRows);
+  });
+}
+
 function renderKeys(data){
   content.innerHTML=data.map(r=>`<article class="card key-card"><div class="keycap">${esc(value(r,["키","단축키"]))}</div><div><div class="category">${esc(value(r,["카테고리","분류"]))}</div><h3>${esc(value(r,["설명","기능","내용"]))}</h3></div></article>`).join("");
 }
@@ -468,4 +626,3 @@ configureServiceWorker();
     window.setTimeout(finish,2200);
   }
 })();
-

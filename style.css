@@ -1804,3 +1804,185 @@ button{cursor:pointer}
   display:none !important;
 }
 
+
+/* =========================================================
+   뉴비가이드 전용 — 카테고리 + Google Drive 영상
+   기존 디자인/기능에는 영향 없음
+   ========================================================= */
+
+.newbie-intro{
+  margin:4px 2px 18px;
+  padding:19px 18px;
+  border-radius:22px;
+  color:#fff;
+  background:
+    radial-gradient(circle at 85% 0%,rgba(224,199,255,.28),transparent 42%),
+    linear-gradient(145deg,#7650c8,#3c246f 68%,#271746);
+  box-shadow:0 14px 30px rgba(56,32,103,.18),inset 0 1px 0 rgba(255,255,255,.20);
+}
+
+.newbie-intro-badge{
+  margin-bottom:7px;
+  color:rgba(255,255,255,.68);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.20em;
+}
+
+.newbie-intro h3{margin:0 0 7px;font-size:22px;letter-spacing:-.04em}
+.newbie-intro p{margin:0;color:rgba(255,255,255,.78);font-size:12px;line-height:1.55}
+
+.newbie-category-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+  padding-bottom:18px;
+}
+
+.newbie-category{
+  min-height:108px;
+  position:relative;
+  border:1px solid rgba(96,71,145,.09);
+  border-radius:21px;
+  padding:16px 15px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:flex-end;
+  gap:9px;
+  text-align:left;
+  color:#1c1630;
+  background:radial-gradient(circle at 82% 8%,rgba(158,115,235,.18),transparent 42%),#fff;
+  box-shadow:0 8px 22px rgba(55,39,88,.09),inset 0 1px 0 rgba(255,255,255,.9);
+  transition:transform .15s ease;
+}
+
+.newbie-category:active{transform:scale(.96)}
+
+.newbie-category-icon{
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  font-size:23px;
+  background:linear-gradient(145deg,#eee5ff,#d7c5ff);
+}
+
+.newbie-category-name{
+  max-width:calc(100% - 15px);
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:-.025em;
+}
+
+.newbie-category-arrow{
+  position:absolute;
+  right:13px;
+  bottom:11px;
+  color:#9c8ab9;
+  font-size:23px;
+}
+
+.newbie-back-to-categories{
+  border:0;
+  padding:6px 4px 10px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  background:transparent;
+  color:#69528f;
+  font-size:12px;
+  font-weight:850;
+}
+
+.newbie-back-to-categories span{font-size:24px;line-height:12px}
+
+.newbie-video-page{padding-bottom:24px}
+
+.newbie-video-heading{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:4px 1px 16px;
+}
+
+.newbie-video-icon{
+  width:50px;
+  height:50px;
+  flex:none;
+  display:grid;
+  place-items:center;
+  border-radius:16px;
+  font-size:27px;
+  background:linear-gradient(145deg,#7e59d1,#513090);
+  box-shadow:0 9px 20px rgba(71,43,123,.20),inset 0 1px rgba(255,255,255,.20);
+}
+
+.newbie-video-kicker{
+  color:#8b75ad;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+
+.newbie-video-heading h3{margin:3px 0 0;font-size:23px;letter-spacing:-.04em}
+
+.newbie-video-frame{
+  width:100%;
+  overflow:hidden;
+  border-radius:22px;
+  background:#0a0710;
+  box-shadow:0 12px 28px rgba(19,12,32,.18);
+}
+
+.newbie-drive-video{
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  min-height:205px;
+  border:0;
+  background:#09060e;
+}
+
+.newbie-video{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:58vh;
+  object-fit:contain;
+  background:#09060e;
+}
+
+.newbie-video-empty{
+  width:100%;
+  min-height:205px;
+  padding:30px 18px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  text-align:center;
+  color:#837496;
+  background:radial-gradient(circle at 50% 0%,rgba(122,83,187,.12),transparent 46%),#f2eef8;
+}
+
+.newbie-video-empty>span{
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:#fff;
+  font-size:18px;
+  background:#7450bd;
+}
+
+.newbie-video-empty strong{color:#3b304b;font-size:15px}
+.newbie-video-empty small{max-width:250px;color:#9285a1;font-size:11px;overflow-wrap:anywhere}
+
+@media(max-width:350px){
+  .newbie-category-grid{grid-template-columns:1fr}
+}
+
