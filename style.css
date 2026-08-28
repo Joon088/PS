@@ -2024,3 +2024,20 @@ button{cursor:pointer}
   }
 }
 
+/* 뉴비가이드 Google Drive 직접 <video> 재생 전용 */
+.newbie-video-frame{
+  width:100%;
+  overflow:hidden;
+  border-radius:22px;
+  background:#000;
+}
+
+.newbie-drive-direct-video{
+  display:block !important;
+  width:100% !important;
+  height:auto !important;
+  aspect-ratio:16 / 9 !important;
+  max-height:none !important;
+  object-fit:contain !important;
+  background:#000 !important;
+}
