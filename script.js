@@ -230,6 +230,7 @@ function newbieIcon(row){
     [/집|주거|부동산/,"🏠"],
     [/병원|치료|EMS/,"🏥"]
   ];
+
   for(const [pattern,icon] of map){
     if(pattern.test(name))return icon;
   }
@@ -262,6 +263,7 @@ function newbieVideoSource(row){
   ]).trim();
 
   const driveId=googleDriveFileId(direct);
+
   if(driveId){
     return {
       type:"drive",
@@ -286,6 +288,7 @@ function renderNewbieCategories(data){
       <h3>무엇을 알아볼까요?</h3>
       <p>카테고리를 선택하면 해당 가이드 영상을 바로 확인할 수 있어요.</p>
     </div>
+
     <div class="newbie-category-grid">
       ${data.map((row,index)=>`
         <button class="newbie-category" data-newbie-index="${index}">
@@ -333,7 +336,6 @@ function renderNewbieVideo(row,allRows){
             title="${attr(name)} 가이드 영상"
             allow="autoplay; fullscreen"
             allowfullscreen
-            loading="lazy"
           ></iframe>
         ` : source.type==="video" ? `
           <video

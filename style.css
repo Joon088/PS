@@ -1980,8 +1980,7 @@ button{cursor:pointer}
 }
 
 /* =========================================================
-   뉴비가이드 영상 — 세로 확장 최종값
-   가로폭은 그대로 유지하고 아래 방향으로 높이만 확장
+   뉴비가이드 Google Drive 영상 — 세로 확장 / 재생 고정
    ========================================================= */
 
 .newbie-video-frame{
@@ -1995,9 +1994,9 @@ button{cursor:pointer}
   box-shadow:0 12px 28px rgba(19,12,32,.18);
 }
 
-.newbie-drive-video,
-.newbie-drive-direct-video{
+.newbie-drive-video{
   display:block !important;
+  position:static !important;
   width:100% !important;
   height:310px !important;
   min-height:310px !important;
@@ -2007,7 +2006,12 @@ button{cursor:pointer}
   background:#000 !important;
 }
 
-.newbie-drive-direct-video{
+.newbie-video{
+  display:block !important;
+  width:100% !important;
+  height:310px !important;
+  min-height:310px !important;
+  max-height:none !important;
   object-fit:contain !important;
+  background:#000 !important;
 }
-
