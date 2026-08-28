@@ -1940,9 +1940,26 @@ button{cursor:pointer}
   display:block;
   width:100%;
   aspect-ratio:16/9;
-  min-height:205px;
+  height:auto;
+  min-height:0;
   border:0;
   background:#09060e;
+}
+
+.newbie-video-frame{
+  width:100%;
+  overflow:hidden;
+  border-radius:22px;
+  background:#0a0710;
+}
+
+.newbie-video-frame iframe{
+  width:100%;
+  aspect-ratio:16/9;
+  height:auto;
+  min-height:0;
+  border:0;
+  display:block;
 }
 
 .newbie-video{
