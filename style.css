@@ -1981,14 +1981,12 @@ button{cursor:pointer}
 
 
 /* =========================================================
-   FIX — Google Drive 영상이 위쪽 플레이어 영역 때문에 작게/잘려 보이는 현상
-   Drive preview 상단 영역을 프레임 밖으로 숨기고 영상 영역을 16:9로 맞춤
+   FINAL FIX — Google Drive 플레이어 전체 영상 표시
+   상단 Drive 제어영역 + 16:9 영상 영역을 함께 확보
    ========================================================= */
 
 .newbie-video-frame{
-  position:relative !important;
   width:100% !important;
-  aspect-ratio:16 / 9 !important;
   height:auto !important;
   min-height:0 !important;
   overflow:hidden !important;
@@ -1996,41 +1994,32 @@ button{cursor:pointer}
   background:#000 !important;
 }
 
+/* Google Drive preview는 상단 제어바가 있어서 16:9보다 높게 잡아야 함 */
 .newbie-drive-video{
-  position:absolute !important;
-  left:0 !important;
-  top:-52px !important;
-  width:100% !important;
-  height:calc(100% + 52px) !important;
-  min-height:0 !important;
-  aspect-ratio:auto !important;
-  border:0 !important;
   display:block !important;
+  position:static !important;
+  width:100% !important;
+  height:auto !important;
+  aspect-ratio:16 / 11.5 !important;
+  min-height:0 !important;
+  border:0 !important;
   background:#000 !important;
 }
 
-/* 일반 MP4 영상은 기존처럼 정상 비율 유지 */
-.newbie-video-frame > .newbie-video{
-  position:static !important;
+/* 일반 직접 MP4 주소는 정상 16:9 */
+.newbie-video{
+  display:block !important;
   width:100% !important;
-  height:100% !important;
+  height:auto !important;
   aspect-ratio:16 / 9 !important;
+  max-height:none !important;
   object-fit:contain !important;
   background:#000 !important;
 }
 
-/* 영상이 없을 때 안내창은 프레임 전체 사용 */
-.newbie-video-frame > .newbie-video-empty{
-  min-height:0 !important;
-  height:100% !important;
-}
-
 @media(max-width:500px){
-  .newbie-video-frame{
-    min-height:0 !important;
-  }
-
   .newbie-drive-video{
+    aspect-ratio:16 / 11.5 !important;
     min-height:0 !important;
   }
 }
