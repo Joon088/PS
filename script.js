@@ -230,6 +230,7 @@ function newbieIcon(row){
     [/집|주거|부동산/,"🏠"],
     [/병원|치료|EMS/,"🏥"]
   ];
+
   for(const [pattern,icon] of map){
     if(pattern.test(name))return icon;
   }
@@ -262,18 +263,26 @@ function newbieVideoSource(row){
   ]).trim();
 
   const driveId=googleDriveFileId(direct);
+
   if(driveId){
     return {
       type:"drive",
-      url:`https://drive.google.com/file/d/${encodeURIComponent(driveId)}/preview`
+      id:driveId,
+
+      // Google Drive 직접 파일 재생 주소.
+      // 성공하면 Drive 상단 검은 플레이어 UI 없이 <video>로 재생됨.
+      direct:`https://drive.google.com/uc?export=download&id=${encodeURIComponent(driveId)}`,
+
+      // 직접 재생 실패 시 사용자가 원본을 열어볼 수 있는 주소
+      view:`https://drive.google.com/file/d/${encodeURIComponent(driveId)}/view`
     };
   }
 
   if(/^https?:\/\//i.test(direct)){
-    return {type:"video",url:direct};
+    return {type:"video",direct:direct,view:direct};
   }
 
-  return {type:"empty",url:""};
+  return {type:"empty",direct:"",view:""};
 }
 
 function renderNewbieCategories(data){
@@ -286,6 +295,7 @@ function renderNewbieCategories(data){
       <h3>무엇을 알아볼까요?</h3>
       <p>카테고리를 선택하면 해당 가이드 영상을 바로 확인할 수 있어요.</p>
     </div>
+
     <div class="newbie-category-grid">
       ${data.map((row,index)=>`
         <button class="newbie-category" data-newbie-index="${index}">
@@ -325,24 +335,16 @@ function renderNewbieVideo(row,allRows){
         </div>
       </div>
 
-      <div class="newbie-video-frame">
-        ${source.type==="drive" ? `
-          <iframe
-            class="newbie-drive-video"
-            src="${attr(source.url)}"
-            title="${attr(name)} 가이드 영상"
-            allow="autoplay; fullscreen"
-            allowfullscreen
-            loading="lazy"
-          ></iframe>
-        ` : source.type==="video" ? `
+      <div class="newbie-video-frame" id="newbieVideoFrame">
+        ${source.type!=="empty" ? `
           <video
-            class="newbie-video"
-            src="${attr(source.url)}"
+            class="newbie-video newbie-drive-direct-video"
+            src="${attr(source.direct)}"
             controls
             playsinline
             preload="metadata"
             aria-label="${attr(name)} 가이드 영상"
+            data-drive-view="${attr(source.view)}"
           ></video>
         ` : `
           <div class="newbie-video-empty">
@@ -358,6 +360,46 @@ function renderNewbieVideo(row,allRows){
   document.getElementById("newbieCategoryBack")?.addEventListener("click",()=>{
     renderNewbieCategories(allRows);
   });
+
+  const video=content.querySelector(".newbie-drive-direct-video");
+
+  if(video){
+    video.addEventListener("loadedmetadata",()=>{
+      // 영상 비율을 원본 그대로 보여줌.
+      // 가로 영상은 폭에 맞추고, 세로 영상도 contain 처리.
+      video.style.objectFit="contain";
+    },{once:true});
+
+    video.addEventListener("error",()=>{
+      const frame=document.getElementById("newbieVideoFrame");
+      if(!frame)return;
+
+      const viewUrl=video.dataset.driveView||"#";
+
+      frame.innerHTML=`
+        <div class="newbie-video-empty">
+          <span>!</span>
+          <strong>Google Drive가 직접 재생을 허용하지 않았어요.</strong>
+          <small>영상 공유 설정이 '링크가 있는 모든 사용자 - 뷰어'인지 확인해주세요.</small>
+          <a
+            href="${attr(viewUrl)}"
+            target="_blank"
+            rel="noopener"
+            style="
+              margin-top:8px;
+              padding:9px 13px;
+              border-radius:11px;
+              background:#7450bd;
+              color:white;
+              text-decoration:none;
+              font-size:11px;
+              font-weight:900;
+            "
+          >Drive에서 영상 확인</a>
+        </div>
+      `;
+    },{once:true});
+  }
 }
 
 function renderKeys(data){
